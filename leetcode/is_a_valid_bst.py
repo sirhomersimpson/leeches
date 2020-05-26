@@ -56,7 +56,8 @@ def post_order_traversal(_root):
 
 def is_bst(_node, min, max):
     #Awesome visualization https://www.youtube.com/watch?v=MILxfAbIhrE
-    # Set max and min to infity
+    # Set max and min to infinity
+    # TC O(n) SC O(n)
     if _node is None:
         return True
     if _node.val <= min or _node.val >= max:
