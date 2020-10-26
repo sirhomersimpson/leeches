@@ -47,7 +47,9 @@ def longest_substring_with_k_distinct(str1, k):
     for window_end in range(len(str1)):
         right_char = str1[window_end]
         # Step 2. Add char from right into a dictionary
-        char_frequency.setdefault(right_char, 0)
+        #char_frequency.setdefault(right_char, 0)
+        if right_char not in char_frequency:
+            char_frequency[right_char] = 0
         char_frequency[right_char] += 1
 
         # Step 3. When we have K distinct chars, we decrease the window
