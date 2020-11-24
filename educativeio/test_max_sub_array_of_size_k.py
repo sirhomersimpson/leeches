@@ -1,4 +1,4 @@
-from max_sub_array_of_size_k_bf import *
+from max_sub_array_of_size_k import *
 
 
 def test_max_sub_array_of_size_k():
@@ -6,7 +6,7 @@ def test_max_sub_array_of_size_k():
     k = 2
     expected = 7
 
-    assert expected == max_sub_array_of_size_k(k, input_list)
+    assert expected == max_sub_array_of_size_k_bf(k, input_list)
 
 
 def test_max_sub_array_of_size_k_sliding_window():

@@ -26,25 +26,24 @@ def non_repeat_substring(str1):
 
     for window_end in range(len(str1)):
         right_char = str1[window_end]
-
-        # if right_char exists in char_index_map, that means there is a duplicate
-        #   - move window_start at the index of right_char +1
         if right_char in char_index_map:
             window_start = char_index_map[right_char] + 1
-
         char_index_map[right_char] = window_end
-        max_length = max(max_length, window_end - window_start + 1)
-
+        max_length = max (max_length, window_end - window_start + 1)
     return max_length
 
 
 def non_repeat_substring_bf(str1):
     max_length = 0
-    lst = [str1[i:j] for i in range(len(str1)) for j in range(i + 1, len(str1) + 1)]
-    for s in lst:
-        if contains_unique_chars(s):
-            max_length = max(len(s), max_length)
-
+    
+    # Step 1: Generate all substrings
+    lst = [str1[i:j] for i in range(len(str1)) for j in range(i+1, len(str1)+1)]
+    
+    # Step 2: Find out if substring has unique chars
+    for s1 in lst:
+        if contains_unique_chars(s1) is True:
+            #Step 3: Find out that substring is the max
+            max_length = max(max_length, len(s1))
     return max_length
 
 
@@ -54,29 +53,26 @@ Python program to check if a string contains all unique characters
 
 
 def contains_unique_chars(str1):
-    # https://www.geeksforgeeks.org/python-get-all-substrings-of-given-string/
-    char_set = [False] * 128
-
-    for ch in str1:
-        if char_set[ord(ch)]:
+    
+    char_flags = [False] * 127
+    for c in str1:
+        if char_flags[ord(c)] is True:
             return False
-        else:
-            char_set[ord(ch)] = True
+        char_flags[ord(c)] = True
     return True
 
-
 def main():
-    #print("Length of the longest substring: " + str(non_repeat_substring("aabccbb")))
-    print("Length of the longest substring: " + str(non_repeat_substring("bbbc")))
-    #print("Length of the longest substring: " + str(non_repeat_substring("abccde")))
+    #print("Length of the longest substring: " + str(non_repeat_substring("aabccbb"))) # expects 3
+    #print("Length of the longest substring: " + str(non_repeat_substring("bbbc"))) # expects 2
+    #print("Length of the longest substring: " + str(non_repeat_substring("abccde"))) # expects 3
 
     #print("Does string abca has unique chars?: " + str(contains_unique_chars('abca')))
     #print("Does string abc has unique chars?: " + str(contains_unique_chars('abc')))
     #print("Does string '' has unique chars?: " + str(contains_unique_chars('')))
 
-    #print("Length of the longest substring(brute force): " + str(non_repeat_substring_bf("abc")))
-    #print("Length of the longest substring(brute force): " + str(non_repeat_substring_bf("abbbb")))
-    #print("Length of the longest substring(brute force): " + str(non_repeat_substring_bf("abccde")))
+    print("Length of the longest substring(brute force): " + str(non_repeat_substring_bf("abc")))
+    print("Length of the longest substring(brute force): " + str(non_repeat_substring_bf("abbbb")))
+    print("Length of the longest substring(brute force): " + str(non_repeat_substring_bf("abccde")))
 
 
 main()
