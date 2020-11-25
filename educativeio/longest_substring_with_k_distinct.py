@@ -19,6 +19,7 @@ Output: 5
 Explanation: The longest substrings with no more than '3' distinct characters are "cbbeb" & "bbebi".
 
 """
+from collections import defaultdict
 
 
 def longest_substring_with_k_distinct_bf(str1, k):
@@ -42,32 +43,33 @@ def longest_substring_with_k_distinct(str1, k):
     window_start = 0
     max_length = 0
     char_frequency = {}
-
-    # Step 1. Go through array using the sliding window technique
+    # Step 1. Go through the window
     for window_end in range(len(str1)):
         right_char = str1[window_end]
-        # Step 2. Add char from right into a dictionary
+        # Step 2. Add each char in dict
         #char_frequency.setdefault(right_char, 0)
         if right_char not in char_frequency:
             char_frequency[right_char] = 0
         char_frequency[right_char] += 1
-
-        # Step 3. When we have K distinct chars, we decrease the window
+        
+        # Step 3. If distinct chars in dict > K, time to shrink the window
         while len(char_frequency) > k:
             left_char = str1[window_start]
             char_frequency[left_char] -= 1
             if char_frequency[left_char] == 0:
                 del char_frequency[left_char]
             window_start += 1
-        max_length = max(max_length, window_end - window_start +1)
 
+        # Step 4. Find the distance between window_start and window_end for maximum length
+        max_length = max(max_length, window_end - window_start + 1)
+      
     return max_length
 
 
 def main():
-    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("aabc", 2))) # expects ab/bc (2)
-    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 1))) # expects aa (2)
-    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("cbbebi", 3))) # expects cbbeb(5)
+    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 2))) # 4
+    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 1))) # 2
+    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("cbbebi", 3))) # 5
 
 
 main()
