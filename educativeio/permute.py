@@ -5,6 +5,7 @@ from itertools import permutations
 import time
 import random
 import string
+from itertools import permutations
 
 def permute_recursive(s):
 	
@@ -24,7 +25,8 @@ def permute_recursive(s):
 
 def permute_iter(s):
 	lst = []
-	for perm in permute_recursive(s):
+	
+	for perm in permutations(s):
 		lst.append(perm)
 	return lst
 
@@ -44,7 +46,7 @@ def load_test (k):
 	print("Starting Itertools permutation")
 	start_time = time.time()
 	#print(permute_recursive(str1))
-	permute_recursive(str1)
+	permute_iter(str1)
 	end_time = time.time()
 	diff_iter = end_time - start_time
 	print(f'(Itertools Itertools) Elapsed time {diff_iter} seconds')
@@ -55,7 +57,12 @@ def load_test (k):
 	print('Summary (itertools is faster than recursive by ): {0:.2f} %'.format(diff_percent))
 
 
-for i in range(5, 15):
-	print(f'Load Test with load {i} running 3 times')
-	for j in range(3):
+# Load tests . it will run iterations times for
+# for arrays from start i and j
+iterations = 1
+start_arr_length = 10
+end_arr_length = 12
+for i in range(start_arr_length, end_arr_length):
+	print(f'Load Test with load {i} running {iterations} times')
+	for j in range(iterations):
 		load_test(i)

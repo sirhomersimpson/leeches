@@ -24,7 +24,6 @@ class Node:
 
 
 def reverse(head) -> Node:
-	
 	prev, current, next_node = None, head, None
 	
 	while current is not None:
@@ -32,7 +31,7 @@ def reverse(head) -> Node:
 		current.next = prev
 		prev = current
 		current = next_node
-		
+	
 	return prev
 
 
