@@ -19,14 +19,17 @@ Explanation: Subarray with maximum sum is [3, 4].
 
 def max_sub_array_of_size_k_bf(k, arr):
 	window_sum = 0
-	max_num = 0
+	max_sum = 0
+	window_start = 0
 	
-	for i in range(len(arr)-k+1):
-		window_sum = 0
-		for j in range(i, i+k):
-			window_sum += arr[j]
-		max_num = max(window_sum, max_num)
-	return max_num
+	for window_end in range(len(arr)):
+		window_sum += arr[window_end]
+		if window_end >= k-1:
+			max_sum = max (window_sum, max_sum)
+			window_sum -= arr[window_start]
+			window_start += 1
+		
+	return max_sum
 
 
 def max_sub_array_of_size_k(k, arr):
